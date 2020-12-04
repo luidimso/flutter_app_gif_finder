@@ -37,6 +37,29 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: Image.network("https://luidimso.github.io/assets/img/logo.png"),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: TextField(
+              decoration: InputDecoration(
+                  labelText: "Search here!",
+                  border: OutlineInputBorder()
+              ),
+              style: TextStyle(
+                  fontSize: 18
+              ),
+              textAlign: TextAlign.center,
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
