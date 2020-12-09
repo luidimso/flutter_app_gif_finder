@@ -87,6 +87,22 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _createGifTable(BuildContext context, AsyncSnapshot snapshot) {
-    
+    return GridView.builder(
+      padding: EdgeInsets.all(10),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10
+      ),
+      itemCount: snapshot.data["data"].length,
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          child: Image.network(snapshot.data["data"][index]["images"]["fixed_height"]["url"],
+            height: 300,
+            fit: BoxFit.cover
+          ),
+        );
+      }
+    );
   }
 }
