@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_gif_finder/src/gif_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:share/share.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   Future<Map> _getGifs() async {
     http.Response response;
 
-    if(_search == null) {
+    if(_search == null || _search.isEmpty) {
       response = await http.get("https://api.giphy.com/v1/gifs/trending?api_key=4L4cuwGtONdZkyaebcerB322sNvwJKCO&limit=20&rating=g");
     } else {
       response = await http.get("https://api.giphy.com/v1/gifs/search?api_key=4L4cuwGtONdZkyaebcerB322sNvwJKCO&q=${_search}&limit=19&offset=${_offset}&rating=g&lang=en");
@@ -122,10 +123,12 @@ class _HomePageState extends State<HomePage> {
             onLongPress: () {
               Share.share(snapshot.data["data"][index]["images"]["fixed_height"]["url"]);
             },
-            child: Image.network(snapshot.data["data"][index]["images"]["fixed_height"]["url"],
+            child: FadeInImage.memoryNetwork(
+              placeholder: kTransparentImage,
+              image: snapshot.data["data"][index]["images"]["fixed_height"]["url"],
               height: 300,
-              fit: BoxFit.cover
-            ),
+              fit: BoxFit.cover,
+            )
           );
         else
           return Container(
